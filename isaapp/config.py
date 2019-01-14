@@ -41,7 +41,6 @@ class DevelopmentConfig(Config):
     IS_LOCAL = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = database_dev_uri
-    SERVER_NAME = 'testisaapp.local:5000'
     SECURITY_PASSWORD_SALT = '87ca286c08f4504981b1f8ee44988e77'
 
 
