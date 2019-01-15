@@ -55,8 +55,7 @@ export default {
       default: ''
     },
     addonRightIcon: String,
-    addonLeftIcon: String, 
-    password: Boolean
+    addonLeftIcon: String
   },
   data() {
     return {

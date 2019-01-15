@@ -7,21 +7,27 @@
             <div class="container">
                 <div class="col-md-5 ml-auto mr-auto">
                     <card type="login" plain>
-                        <fg-input id="login"
-                                  class="no-border input-lg"
-                                  addon-left-icon="now-ui-icons users_circle-08"
-                                  placeholder="Mail">
+                        <div slot="header" class="logo-container">
+                            <img v-lazy="'img/now-logo.png'" alt="">
+                        </div>
+
+                        <fg-input class="no-border input-lg"
+                                  placeholder="Email"
+                                  v-model="form.email"
+                                  addon-left-icon="now-ui-icons users_circle-08">
                         </fg-input>
 
                         <fg-input class="no-border input-lg"
+                                  ref="password"
                                   type="password"
-                                  addon-left-icon="now-ui-icons text_caps-small"
-                                  placeholder="Password">
+                                  placeholder="Password"
+                                  v-model="form.password"
+                                  addon-left-icon="now-ui-icons text_caps-small">
                         </fg-input>
 
                         <template slot="raw-content">
                             <div class="card-footer text-center">
-                                <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">Connection</a>
+                                 <n-button type="primary" v-on:click="connect" round block size="lg">Login</n-button>
                             </div>
                             <div class="pull-left">
                                 <h6>
@@ -38,6 +44,9 @@
 <script>
 import { Card, Button, FormGroupInput } from '@/components';
 import MainFooter from '@/layout/MainFooter';
+import axios from 'axios';
+import router from '../router';
+
 export default {
   name: 'login-page',
   bodyClass: 'login-page',
@@ -46,17 +55,32 @@ export default {
     MainFooter,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput
-  }
+  },
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      }
+    };
+   }, 
+   methods: {
+        connect: function() {
+            const stringify = require('json-stringify-safe');
+
+            axios.post('http://localhost:5000/api/login/', {
+                email: this.form.email,
+                password: this.form.password
+            }).then(response => {
+                // this.$store.commit('LOGIN_SUCCESS', response);
+                router.push("/")
+            }).catch(error => {
+                console.error(stringify(error));
+                console.log(stringify(error))
+            });
+        }
+    }
 };
-
-const passwordField = document.querySelector("#password")
-
-function switchVisibility() {
-    if (passwordField.getAttribute('type') === 'password') 
-        passwordField.setAttribute('type', 'text')
-    else
-        passwordField.setAttribute('type', 'password')
-}
 </script>
 <style>
 </style>

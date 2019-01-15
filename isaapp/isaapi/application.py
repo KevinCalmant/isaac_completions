@@ -2,11 +2,14 @@
 Setup API specific settings.
 '''
 from flask import Flask
+from flask_cors import CORS
 
 
 def create_app(app_name='ISAAP'):
     app = Flask(app_name)
     app.config.from_object('isaapi.config.BaseConfig')
+
+    CORS(app)
 
     # Register the API blueprint object in the application object
     from isaapi.api import api
