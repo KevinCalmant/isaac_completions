@@ -1,0 +1,14 @@
+{
+  "name": "isaapp_api_gateway",
+  "version": "1.0.0",
+  "description": "API GATEWAY for ISAAPP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kévin Calmant",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3"
+  }
+}

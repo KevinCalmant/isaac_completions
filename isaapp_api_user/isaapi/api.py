@@ -15,8 +15,8 @@ from .models import db, User
 
 api = Blueprint('api', __name__)
 
-
-def token_required(f):
+@api.route('/auth/', methods=('Post'),)
+def auth(f):
     @wraps(f)
     def _verify(*args, **kwargs):
         # Get the authentication headers from HTTP headers
@@ -51,7 +51,6 @@ def token_required(f):
 
 
 @api.route('/users', methods=('GET',))
-@token_required
 def users():
     users = User.query.all()
     return jsonify([u.to_dict() for u in users])
