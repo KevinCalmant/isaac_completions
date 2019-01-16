@@ -68,7 +68,7 @@ export default {
         connect: function() {
             const stringify = require('json-stringify-safe');
 
-            axios.post('http://localhost:5000/api/login/', {
+            axios.post('http://localhost:3000/api/login', {
                 email: this.form.email,
                 password: this.form.password
             }).then(response => {

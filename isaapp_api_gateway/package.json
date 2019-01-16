@@ -9,6 +9,9 @@
   "author": "Kévin Calmant",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3"
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-http-proxy": "^1.5.1"
   }
 }

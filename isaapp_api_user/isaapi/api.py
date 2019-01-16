@@ -15,8 +15,8 @@ from .models import db, User
 
 api = Blueprint('api', __name__)
 
-@api.route('/auth/', methods=('Post'),)
-def auth(f):
+
+def token_required(f):
     @wraps(f)
     def _verify(*args, **kwargs):
         # Get the authentication headers from HTTP headers
@@ -37,7 +37,7 @@ def auth(f):
         try:
             token = auth_headers[1]
             data = jwt.decode(token, current_app.config['SECRET_KEY'])
-            user = User.query.filter_by(email=data['sub']).first()
+            user = User.query.filter_by(email=data['email']).first()
 
             if not user:
                 raise RuntimeError('User not found')
@@ -51,6 +51,7 @@ def auth(f):
 
 
 @api.route('/users', methods=('GET',))
+@token_required
 def users():
     users = User.query.all()
     return jsonify([u.to_dict() for u in users])
